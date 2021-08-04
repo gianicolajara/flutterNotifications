@@ -32,28 +32,25 @@ class _UIHomePageState extends State<UIHomePage> {
               child: Column(
             children: [
               ElevatedButton(
-                child: Text('Llamar notificacion sencilla'),
-                onPressed: () {
-                  DEM.localNotifications.instantNotification('hola como esta');
-                },
-              ),
-              ElevatedButton(
                 child: Text('Llamar notificacion con imagen'),
                 onPressed: () async {
-                  await DEM.localNotifications.imageNotification();
+                  await DEM.localNotifications
+                      .imageNotification(0, 'Titulo', 'Descripcion', 'Payload');
                 },
               ),
               ElevatedButton(
                 child: Text('Llamar notificacion estilizada'),
                 onPressed: () async {
-                  await DEM.localNotifications.stylishNotification();
+                  await DEM.localNotifications.stylishNotification(
+                      1, 'Titulo', 'Descripcion', 'Payload');
                 },
               ),
               ElevatedButton(
-                child: Text('Llamar notificaciones cada 5 segundos'),
+                child: Text('Notificación cada 15 seg'),
                 onPressed: () async {
-                  Timer.periodic(Duration(seconds: 5), (timer) async {
-                    await DEM.localNotifications.stylishNotification();
+                  Timer.periodic(Duration(seconds: 3), (value) async {
+                    await DEM.localNotifications.stylishNotification(
+                        2, 'Titulo', 'Descripcion', 'Payload');
                   });
                 },
               ),
