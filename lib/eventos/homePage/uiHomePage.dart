@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:eventos/eventos/_export.dart';
 
 class UIHomePage extends StatefulWidget {
@@ -37,20 +39,22 @@ class _UIHomePageState extends State<UIHomePage> {
               ),
               ElevatedButton(
                 child: Text('Llamar notificacion con imagen'),
-                onPressed: () {
-                  DEM.localNotifications.imageNotification();
+                onPressed: () async {
+                  await DEM.localNotifications.imageNotification();
                 },
               ),
               ElevatedButton(
                 child: Text('Llamar notificacion estilizada'),
-                onPressed: () {
-                  DEM.localNotifications.stylishNotification();
+                onPressed: () async {
+                  await DEM.localNotifications.stylishNotification();
                 },
               ),
               ElevatedButton(
-                child: Text('Llamar notificacion temporalizada por minuto'),
-                onPressed: () {
-                  DEM.localNotifications.scheduleNotification();
+                child: Text('Llamar notificaciones cada 5 segundos'),
+                onPressed: () async {
+                  Timer.periodic(Duration(seconds: 5), (timer) async {
+                    await DEM.localNotifications.stylishNotification();
+                  });
                 },
               ),
               ElevatedButton(

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:eventos/eventos/_export.dart';
 
 class LocalNotifications {
@@ -86,9 +88,15 @@ class LocalNotifications {
         AndroidNotificationDetails('id', 'channel', 'description',
             importance: Importance.max,
             priority: Priority.high,
-            showWhen: false,
+            /* onlyAlertOnce: true, */
+            visibility: NotificationVisibility.public,
+            /* showWhen: false, */
             enableLights: true,
             enableVibration: true,
+            playSound: true,
+            /* channelShowBadge: true, */
+            channelAction: AndroidNotificationChannelAction.update,
+            sound: RawResourceAndroidNotificationSound("noti"),
             largeIcon: DrawableResourceAndroidBitmap("icon"),
             styleInformation: MediaStyleInformation(
                 htmlFormatContent: true, htmlFormatTitle: true));
@@ -99,31 +107,6 @@ class LocalNotifications {
     await flutterLocalNotificationsPlugin.show(
         0, 'Titulo imagen', 'Descripción imagen', platformChannelSpecifics,
         payload: 'Bienvenido a mi notificación con imagen');
-  }
-
-  Future scheduleNotification() async {
-    RepeatInterval interval = RepeatInterval.everyMinute;
-    const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('id', 'channel', 'description',
-            importance: Importance.max,
-            priority: Priority.high,
-            showWhen: false,
-            enableLights: true,
-            enableVibration: true,
-            largeIcon: DrawableResourceAndroidBitmap("icon"),
-            styleInformation: MediaStyleInformation(
-                htmlFormatContent: true, htmlFormatTitle: true));
-
-    const NotificationDetails platformChannelSpecifics =
-        NotificationDetails(android: androidNotificationDetails);
-
-    await flutterLocalNotificationsPlugin.periodicallyShow(
-      0,
-      'Titulo cada minuto',
-      'Descripción cada minuto',
-      interval,
-      platformChannelSpecifics,
-    );
   }
 
   Future cancelNotification() async {
